@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
-# Configures /etc/hosts so that:
-#   localhost -> 127.0.0.2
-#   facebook.com -> 8.8.8.8
 
-# Replace existing localhost entry (127.0.0.1 or 127.0.0.2)
-sed -i 's/^127\.0\.0\.[0-9]\+\s\+localhost/127.0.0.2\tlocalhost/' /etc/hosts
+sed -i '/localhost/d' /etc/hosts
+sed -i '/facebook\.com/d' /etc/hosts
 
-# If no localhost line existed at all, add one
-grep -q 'localhost' /etc/hosts || echo -e '127.0.0.2\tlocalhost' >> /etc/hosts
-
-# Remove any existing facebook.com entry, then add the new one
-sed -i '/\sfacebook\.com/d' /etc/hosts
-echo -e '8.8.8.8\tfacebook.com' >> /etc/hosts
+echo '127.0.0.2 localhost' >> /etc/hosts
+echo '8.8.8.8 facebook.com' >> /etc/hosts
